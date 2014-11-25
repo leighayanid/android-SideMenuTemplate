@@ -14,7 +14,6 @@
         <item>Restaurants</item>
         <item>Resort/Beaches</item>
         <item>Natural Wonders</item>
-        <item>Exit</item>
     </string-array>
 
     <string name="drawer_open">Open Navigation Drawer</string>

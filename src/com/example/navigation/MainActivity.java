@@ -1,5 +1,7 @@
 package com.example.navigation;
 
+import com.example.navigation.adapter.BataanAdapter;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -10,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity implements
@@ -18,8 +19,9 @@ public class MainActivity extends ActionBarActivity implements
 
 	private DrawerLayout drawerLayout;
 	private ListView listView;
-	private String[] bataan;
+	// private String[] bataan;
 	private ActionBarDrawerToggle drawerListener;
+	private BataanAdapter bataanAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +29,9 @@ public class MainActivity extends ActionBarActivity implements
 		setContentView(R.layout.activity_main);
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-		bataan = getResources().getStringArray(R.array.bataan);
 		listView = (ListView) findViewById(R.id.drawerList);
-		listView.setAdapter(new ArrayAdapter<>(this,
-				android.R.layout.simple_list_item_1, bataan));
+		bataanAdapter = new BataanAdapter(this);
+		listView.setAdapter(bataanAdapter);
 		listView.setOnItemClickListener(this);
 
 		drawerListener = new ActionBarDrawerToggle(this, drawerLayout,
@@ -39,18 +40,12 @@ public class MainActivity extends ActionBarActivity implements
 
 			@Override
 			public void onDrawerOpened(View drawerView) {
-				// TODO Auto-generated method stub
 				super.onDrawerOpened(drawerView);
-				// Toast.makeText(MainActivity.this,"Open",
-				// Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onDrawerClosed(View drawerView) {
-				// TODO Auto-generated method stub
 				super.onDrawerClosed(drawerView);
-				// Toast.makeText(MainActivity.this,"Close",
-				// Toast.LENGTH_SHORT).show();
 			}
 		};
 
@@ -85,7 +80,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
+		
 		super.onConfigurationChanged(newConfig);
 		drawerListener.onConfigurationChanged(newConfig);
 	}
@@ -93,14 +88,13 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// Toast.makeText(this, bataan[position]+" was selected",
-		// Toast.LENGTH_SHORT).show();
 		selectItem(position);
 	}
 
 	public void selectItem(int position) {
+
 		listView.setItemChecked(position, true);
-		setTitle(bataan[position]);
+		
 	}
 
 	public void setTitle(String title) {
